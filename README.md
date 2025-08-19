@@ -1,3 +1,8 @@
+CHIC_MOVIES
+This is my first React Project! It's a movie website where chic-flic lovers can unite and download movies on a website purely made for them. This project was done by the guidance of JsMastery <3
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
