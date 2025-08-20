@@ -1,5 +1,5 @@
 CHIC_MOVIES
-This is my first React Project! It's a movie website where chic-flic lovers can unite and download movies on a website purely made for them. This project was done by the guidance of JsMastery <3
+This is my first React Project! It's a movie website like any other. This project was done by the guidance of JsMastery <3
 
 
 
