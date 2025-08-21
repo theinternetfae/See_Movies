@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Search  from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
+import {useDebounce} from 'react-use';
 
 //DATABASE INFO SETUP
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -22,13 +23,16 @@ function Mapp() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+
+    useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]); //To avoid making too many API requests by waiting for the user to stop typing for 500ms
 
     //FETCHING THE MOVIES FROM THE DATABASE
     const fetchMovies = async (query = '') => {
 
         setIsLoading(true);
         setErrorMessage('');
-
+ 
         try {
             
             const endPoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
@@ -60,8 +64,8 @@ function Mapp() {
     }
 
     useEffect(() => {
-        fetchMovies(searchTerm);
-    }, [searchTerm]);
+        fetchMovies(debouncedSearchTerm);
+    }, [debouncedSearchTerm]);
 
     return ( 
         <main>
@@ -73,7 +77,7 @@ function Mapp() {
                 <header>
                     <img src="./chic-movies-logo.png" className="w-45 mb-10"/>
                     <img src="./movie-banner.png" alt="banner" className="w-125"/>
-                    <h1>Find <span className="text-gradient">Chic-flics</span> You'll Enjoy Without The Stress</h1>
+                    <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without The Stress</h1>
                     <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                 </header>
 

@@ -39,7 +39,7 @@
   }
 
   main {
-    @apply min-h-screen relative bg-white/1 backdrop-blur-md;
+    @apply min-h-screen min-w-screen relative bg-white/1 backdrop-blur-md;
   }
 
   header {
