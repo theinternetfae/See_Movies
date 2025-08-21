@@ -24,14 +24,14 @@ function Mapp() {
     const [isLoading, setIsLoading] = useState(false);
 
     //FETCHING THE MOVIES FROM THE DATABASE
-    const fetchMovies = async () => {
+    const fetchMovies = async (query = '') => {
 
         setIsLoading(true);
         setErrorMessage('');
 
         try {
             
-            const endPoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+            const endPoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
             const response = await fetch(endPoint, API_OPTIONS);
             
             if (!response.ok) {
@@ -60,8 +60,8 @@ function Mapp() {
     }
 
     useEffect(() => {
-        fetchMovies();
-    }, []);
+        fetchMovies(searchTerm);
+    }, [searchTerm]);
 
     return ( 
         <main>
