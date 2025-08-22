@@ -1,4 +1,4 @@
-CHIC_MOVIES
+SEE_MOVIES
 This is my first React Project! It's a movie website like any other. This project was done by the guidance of JsMastery <3
 
 
