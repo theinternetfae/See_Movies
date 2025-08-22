@@ -78,15 +78,17 @@
     }
 
     & ul li {
-      @apply min-w-[230px] flex flex-row items-center;
+      @apply min-w-[230px] flex flex-row items-center mr-20;
     }
 
     & ul li p {
-      @apply fancy-text mt-[22px] text-nowrap;
+      @apply fancy-text mt-[22px] text-nowrap 
     }
 
     & ul li img {
-      @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+      @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5
+      border-2 border-purple-700 
+      bg-blue-100 rounded-lg px-1 py-1;
     }
   }
 

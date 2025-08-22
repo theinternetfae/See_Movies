@@ -8,7 +8,6 @@ const APPWRITE_ENDPOINT = import.meta.env.VITE_APPWRITE_ENDPOINT;
 const client = new Client().setEndpoint(APPWRITE_ENDPOINT).setProject(PROJECT_ID);
 const database = new Databases(client);
 
-
 export async function updateSearchCount (searchTerm, movie) {
     //1. Use Appwrite to check if the search term exists in the database
     try {
@@ -33,4 +32,18 @@ export async function updateSearchCount (searchTerm, movie) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function getTrendingMovies() {
+  try {
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.limit(5),
+      Query.orderDesc("count")   
+    ]);
+
+    return result.documents || [];  
+  } catch (error) {
+    console.log(error);
+    return [];  
+  }
 }
