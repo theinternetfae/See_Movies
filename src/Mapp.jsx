@@ -3,6 +3,7 @@ import Search  from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import {useDebounce} from 'react-use';
+import { updateSearchCount } from "./appWrite.js";
 
 //DATABASE INFO SETUP
 const API_BASE_URL = 'https://api.themoviedb.org/3';
@@ -24,6 +25,8 @@ function Mapp() {
     const [movieList, setMovieList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
+    
+    //DATABASES are permanent ways of storing data unlike useState which only saves data on on page mount.
 
     useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]); //To avoid making too many API requests by waiting for the user to stop typing for 500ms
 
@@ -44,14 +47,17 @@ function Mapp() {
 
             const data = await response.json();
 
-            if(data.Response === 'false') {
-                setErrorMessage(data.Error || 'Failed to fetch movies');
-                setMovieList([]);
-                return;
-            }
+            // if(data.Response === 'false') {
+            //     setErrorMessage(data.Error || 'Failed to fetch movies');
+            //     setMovieList([]);
+            //     return;
+            // }
 
-            setMovieList(data.results);
-            console.log(data.results);
+            setMovieList(data.results || []);
+            
+            if(query && data.results.length > 0) {
+                await updateSearchCount(query, data.results[0]);
+            }
 
         } catch (error) {
             console.log(`Error fetching movies ${error}`);
@@ -84,7 +90,7 @@ function Mapp() {
                 <section className="all-movies">
                     <h2 className="mt-[40px]">All Movies</h2>
 
-                    {isLoading ? (
+                    { isLoading ? (
                         <Spinner />
                     ) : errorMessage ? (
                         <p className="text-red-500">{errorMessage}</p>
