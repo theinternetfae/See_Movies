@@ -27,9 +27,13 @@ function Mapp() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [trendingMovies, setTrendingMovies] = useState([]);
-    //trending errors
-    //trending isLoading 
+    const [trendingError, setTrendingError] = useState(null);
+    const [trendingLoading, setTrendingLoading] = useState(false);
 
+
+    useEffect(() => {
+        document.title = "See Movies"; 
+    }, []);
 
     //DATABASES are permanent ways of storing data unlike useState which only saves data on on page mount.
 
@@ -75,12 +79,20 @@ function Mapp() {
     }
 
     async function loadTrendingMovies () {
+
+        setTrendingLoading(true);
+        setTrendingError('');       
+
         try {
             const movies = await getTrendingMovies();
             setTrendingMovies(movies);
         } catch (error) {
             console.log(`Error fetching trending movies ${error}`);
+            setTrendingError('Error fetching trending list. Please try again.');
+        } finally {
+            setTrendingLoading(false);
         }
+
     }
 
     useEffect(() => {
@@ -105,11 +117,12 @@ function Mapp() {
                     <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                 </header>
 
+
+                <h2>Trending Movies</h2>
+
                 {trendingMovies.length > 0 && (
                     <section className="trending">
-                        
-                        <h2>Trending Movies</h2>
-
+                    
                         <ul>
                             {trendingMovies.map((movie, index) => (
                                 <li key={movie.$id}>
@@ -121,6 +134,36 @@ function Mapp() {
 
                     </section>
                 )}
+
+
+                {/* { trendingLoading ? (
+                        <Spinner />
+                ) : trendingError ? (
+                        <p className="text-red-500">{trendingError}</p>
+                ) : (
+
+                    trendingMovies.length > 0 && (
+                    
+                        <section className="trending">
+
+                            <ul>
+                                {trendingMovies.map((movie, index) => (
+                                    <li key={movie.id}>
+                                    <p>{index + 1}</p>
+                                    <img
+                                        src={movie.poster_path && `https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                        alt={movie.title}                                    
+                                    />
+                                    </li>
+                                ))}
+                            </ul>
+
+                        </section>
+
+                    )
+
+                )} */}
+
 
                 <section className="all-movies">
                     
@@ -143,6 +186,7 @@ function Mapp() {
             </div>
 
         </main> 
+
     );
 }
 
