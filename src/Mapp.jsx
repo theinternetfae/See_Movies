@@ -33,6 +33,11 @@ function Mapp() {
 
     useEffect(() => {
         document.title = "See Movies"; 
+
+        const favicon = document.querySelector("link[rel='icon']");
+            if (favicon) {
+            favicon.href = "/favicon.png"; 
+            }
     }, []);
 
     //DATABASES are permanent ways of storing data unlike useState which only saves data on on page mount.
@@ -56,12 +61,6 @@ function Mapp() {
 
             const data = await response.json();
 
-            // if(data.Response === 'false') {
-            //     setErrorMessage(data.Error || 'Failed to fetch movies');
-            //     setMovieList([]);
-            //     return;
-            // }
-
             setMovieList(data.results || []);
             
             if(query && data.results.length > 0) {
@@ -70,7 +69,7 @@ function Mapp() {
 
         } catch (error) {
             console.log(`Error fetching movies ${error}`);
-            setErrorMessage('Error fetching movies. Please try again');
+            setErrorMessage('Error fetching movies. Please try again.');
         } finally {
             //'finally' As in regardless of what goes on in try or catch
             setIsLoading(false);
@@ -88,7 +87,7 @@ function Mapp() {
             setTrendingMovies(movies);
         } catch (error) {
             console.log(`Error fetching trending movies ${error}`);
-            setTrendingError('Error fetching trending list. Please try again.');
+            setTrendingError('Error fetching trending movies. Please try again.');
         } finally {
             setTrendingLoading(false);
         }
@@ -120,26 +119,10 @@ function Mapp() {
 
                 <h2>Trending Movies</h2>
 
-                {trendingMovies.length > 0 && (
-                    <section className="trending">
-                    
-                        <ul>
-                            {trendingMovies.map((movie, index) => (
-                                <li key={movie.$id}>
-                                    <p>{index + 1}</p>
-                                    <img src={movie.poster_url} alt={movie.title} />
-                                </li>
-                            ))}
-                        </ul>
-
-                    </section>
-                )}
-
-
-                {/* { trendingLoading ? (
+                { trendingLoading ? (
                         <Spinner />
                 ) : trendingError ? (
-                        <p className="text-red-500">{trendingError}</p>
+                        <p className="text-red-500 mb-10 mt-10">{trendingError}</p>
                 ) : (
 
                     trendingMovies.length > 0 && (
@@ -148,10 +131,10 @@ function Mapp() {
 
                             <ul>
                                 {trendingMovies.map((movie, index) => (
-                                    <li key={movie.id}>
+                                    <li key={movie.$id}>
                                     <p>{index + 1}</p>
                                     <img
-                                        src={movie.poster_path && `https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                        src={movie.poster_url && `https://image.tmdb.org/t/p/w500${movie.poster_url}`}
                                         alt={movie.title}                                    
                                     />
                                     </li>
@@ -162,7 +145,7 @@ function Mapp() {
 
                     )
 
-                )} */}
+                )}
 
 
                 <section className="all-movies">
