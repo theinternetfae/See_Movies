@@ -31,6 +31,7 @@ function Mapp() {
     const [trendingError, setTrendingError] = useState(null);
     const [trendingLoading, setTrendingLoading] = useState(false);
 
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     useEffect(() => {
         document.title = "See Movies"; 
@@ -41,6 +42,10 @@ function Mapp() {
     }, []);
 
     //DATABASES are permanent ways of storing data unlike useState which only saves data on on page mount.
+
+    function descriptionPopUp(movie) {
+        setSelectedMovie(movie);
+    }
 
     useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]); //To avoid making too many API requests by waiting for the user to stop typing for 500ms
 
@@ -164,7 +169,7 @@ function Mapp() {
                         ) : (
                             <ul>
                                 {movieList.map((movie) => (
-                                    <MovieCard key={movie.id} movie={movie} />
+                                    <li onClick={() => descriptionPopUp(movie)}><MovieCard key={movie.id} movie={movie}/></li>
                                 ))}
                             </ul>
                         )}
@@ -174,8 +179,8 @@ function Mapp() {
                 </div>
         
             </main> 
-        
-            <MovieInfo />
+
+            {selectedMovie && <MovieInfo movie={selectedMovie} exit={() => setSelectedMovie(null)}/>}
         </>
 
     );
