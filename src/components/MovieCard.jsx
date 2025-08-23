@@ -8,7 +8,7 @@ function MovieCard({movie: { title, vote_average, poster_path, release_date, ori
 
                 <div className="content">
                     <div className="rating">
-                        <i class="bi bi-star-fill text-yellow-600"></i>
+                        <i className="bi bi-star-fill text-yellow-600"></i>
                         <p>{vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
                     </div>
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Search  from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
+import MovieInfo from "./components/MovieInfo.jsx";
 import {useDebounce} from 'react-use';
 import { getTrendingMovies, updateSearchCount } from "./appWrite.js";
 
@@ -35,9 +36,8 @@ function Mapp() {
         document.title = "See Movies"; 
 
         const favicon = document.querySelector("link[rel='icon']");
-            if (favicon) {
-            favicon.href = "/favicon.png"; 
-            }
+        favicon.href = "/favicon.png"; 
+
     }, []);
 
     //DATABASES are permanent ways of storing data unlike useState which only saves data on on page mount.
@@ -60,6 +60,8 @@ function Mapp() {
             }
 
             const data = await response.json();
+
+            console.log(data.results);
 
             setMovieList(data.results || []);
             
@@ -103,72 +105,78 @@ function Mapp() {
     }, [debouncedSearchTerm]);
 
     return ( 
-        <main>
 
-            <div className="pattern"/>
+        <>
+        
+            <main>
 
-            <div className="wrapper">
+                <div className="pattern"/>
 
-                <header>
-                    <img src="./chic-movies-logo.png" className="w-45 mb-10"/>
-                    <img src="./movie-banner.png" alt="banner" className="w-125"/>
-                    <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without The Stress</h1>
-                    <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-                </header>
+                <div className="wrapper">
 
-
-                <h2>Trending Movies</h2>
-
-                { trendingLoading ? (
-                        <Spinner />
-                ) : trendingError ? (
-                        <p className="text-red-500 mb-10 mt-10">{trendingError}</p>
-                ) : (
-
-                    trendingMovies.length > 0 && (
-                    
-                        <section className="trending">
-
-                            <ul>
-                                {trendingMovies.map((movie, index) => (
-                                    <li key={movie.$id}>
-                                    <p>{index + 1}</p>
-                                    <img
-                                        src={movie.poster_url && `https://image.tmdb.org/t/p/w500${movie.poster_url}`}
-                                        alt={movie.title}                                    
-                                    />
-                                    </li>
-                                ))}
-                            </ul>
-
-                        </section>
-
-                    )
-
-                )}
+                    <header>
+                        <img src="./chic-movies-logo.png" className="w-45 mb-10"/>
+                        <img src="./movie-banner.png" alt="banner" className="w-125"/>
+                        <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without The Stress</h1>
+                        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+                    </header>
 
 
-                <section className="all-movies">
-                    
-                    <h2>All Movies</h2>
+                    <h2>Trending Movies</h2>
 
-                    { isLoading ? (
-                        <Spinner />
-                    ) : errorMessage ? (
-                        <p className="text-red-500">{errorMessage}</p>
+                    { trendingLoading ? (
+                            <Spinner />
+                    ) : trendingError ? (
+                            <p className="text-red-500 mb-10 mt-10">{trendingError}</p>
                     ) : (
-                        <ul>
-                            {movieList.map((movie) => (
-                                <MovieCard key={movie.id} movie={movie} />
-                            ))}
-                        </ul>
+
+                        trendingMovies.length > 0 && (
+                        
+                            <section className="trending">
+
+                                <ul>
+                                    {trendingMovies.map((movie, index) => (
+                                        <li key={movie.$id}>
+                                        <p>{index + 1}</p>
+                                        <img
+                                            src={movie.poster_url && `https://image.tmdb.org/t/p/w500${movie.poster_url}`}
+                                            alt={movie.title}                                    
+                                        />
+                                        </li>
+                                    ))}
+                                </ul>
+
+                            </section>
+
+                        )
+
                     )}
 
-                </section>
 
-            </div>
+                    <section className="all-movies">
+                        
+                        <h2>All Movies</h2>
 
-        </main> 
+                        { isLoading ? (
+                            <Spinner />
+                        ) : errorMessage ? (
+                            <p className="text-red-500">{errorMessage}</p>
+                        ) : (
+                            <ul>
+                                {movieList.map((movie) => (
+                                    <MovieCard key={movie.id} movie={movie} />
+                                ))}
+                            </ul>
+                        )}
+
+                    </section>
+
+                </div>
+        
+            </main> 
+        
+            <MovieInfo />
+        </>
 
     );
 }
