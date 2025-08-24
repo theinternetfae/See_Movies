@@ -69,10 +69,16 @@ function Mapp() {
             console.log(data.results);
 
             setMovieList(data.results || []);
+
+            if (query && data.results.length === 0) {
+                setErrorMessage(`No results found for "${query}"`);
+            }   
             
             if(query && data.results.length > 0) {
                 await updateSearchCount(query, data.results[0]);
             }
+
+
 
         } catch (error) {
             console.log(`Error fetching movies ${error}`);
@@ -135,7 +141,7 @@ function Mapp() {
                             <p className="text-red-500 mb-10 mt-10">{trendingError}</p>
                     ) : (
 
-                        trendingMovies.length > 0 && (
+                        trendingMovies.length > 0 ? (
                         
                             <section className="trending">
 
@@ -153,7 +159,7 @@ function Mapp() {
 
                             </section>
 
-                        )
+                        ) : (<p className="no-trending">Start searching movies to get your trending list!</p>)
 
                     )}
 
