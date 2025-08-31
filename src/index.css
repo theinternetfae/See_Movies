@@ -31,24 +31,22 @@
   }
 
   h1 {
-    @apply mx-auto max-w-4xl text-center text-4xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px];
+    @apply mx-auto max-w-4xl text-center text-3xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px];
   }
 
   h2 {
-    @apply text-2xl font-bold text-white sm:text-3xl text-shadow-lg mt-15;
+    @apply font-bold text-white text-shadow-lg mt-16 text-xl sm:text-3xl lg:text-3xl;
   }
 
   main {
     @apply min-h-screen min-w-screen relative bg-white/1 backdrop-blur-md;
   }
 
-  header {
-    @apply sm:mt-10 mt-5;
-  }
 
-  header img {
+
+  /* header img {
     @apply w-full max-w-lg h-auto object-contain mx-auto drop-shadow-md;
-  }
+  } */
 
   .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -66,11 +64,23 @@
     @apply bg-hero-pattern w-screen h-screen bg-center bg-cover absolute z-0;
   }
 
+  .header {
+    @apply sm:mt-10 mt-5;
+
+    & .banner {
+      @apply w-full sm:w-[35px] md:w-[70px] lg:w-[175px] mx-auto;
+    }
+
+    & .logo {
+      @apply w-full sm:w-[20px] md:w-[70px] lg:w-[175px] mx-auto;
+    }
+  }
+
   .wrapper {
-    @apply px-5 py-12 xs:p-10 max-w-7xl mx-auto flex flex-col relative z-10;
+    @apply py-12 max-w-7xl mx-auto flex flex-col relative z-10;
 
     & .no-trending {
-      @apply text-[#FFFFFF] my-10; 
+      @apply text-[#FFFFFF] ; 
     }
   }
 
@@ -114,10 +124,15 @@
 
   .all-movies {
     @apply space-y-9;
+ 
+  & ul {
+    @apply grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+  }
 
-    & ul {
-      @apply grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
-    }
+  & ul li {
+    @apply flex justify-center;
+  }
+
   }
 
   .spinner {
@@ -125,10 +140,10 @@
   }
 
   .movie-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10 cursor-pointer;
+     @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10 cursor-pointer w-full max-w-[360px] cursor-pointer;
 
     & img {
-      @apply rounded-lg h-auto w-full;
+      @apply rounded-lg h-auto w-full sm:max-w-[340px] lg:max-w-full;
     }
 
     & h3 {
@@ -168,7 +183,7 @@
     @apply p-5 text-white fixed inset-0 flex items-center justify-center z-50 bg-white/1 backdrop-blur-md;
 
     & .box-containing {
-      @apply max-w-7xl mx-auto bg-[#00033D] p-10 rounded-3xl;
+      @apply max-w-7xl mx-auto bg-[#00033D] p-10 rounded-3xl h-[90%];
     }
 
     & .icon-container {
@@ -176,7 +191,7 @@
     }
 
     & .info-container {
-      @apply flex gap-10;
+      @apply flex flex-col gap-10 md:flex-row;
     }
 
     & .info-container img {

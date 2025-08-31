@@ -125,9 +125,9 @@ function Mapp() {
 
                 <div className="wrapper">
 
-                    <header>
-                        <img src="./chic-movies-logo.png" className="w-45 mb-10"/>
-                        <img src="./movie-banner.png" alt="banner" className="w-125"/>
+                    <header className="header">
+                        <img src="./chic-movies-logo.png" className="w-45 mb-10 logo"/>
+                        <img src="./movie-banner.png" alt="banner" className="w-125 banner"/>
                         <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy Without The Stress</h1>
                         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                     </header>
