@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ gh-pages ]  # 👈 redeploys whenever you push to main
+    branches: [ main ]  # 👈 redeploys whenever you push to main
 
 permissions:
   contents: write
