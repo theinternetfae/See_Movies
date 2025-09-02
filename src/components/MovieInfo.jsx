@@ -39,7 +39,7 @@ function MovieInfo({ movie, exit }) {
                         
                         <div className="rating">
                             <i className="bi bi-star-fill"></i>
-                            <span>{`${movie.vote_average.toFixed(1)}`}<span className="rate-text">Rating</span></span>
+                            <span>{`${movie.vote_average.toFixed(1)}`} <span className="rate-text">Rating</span></span>
                             <span className="hiding">•</span>
                             <span className="hiding">{dateFormat()}</span>
                             <span className="hiding">•</span>
