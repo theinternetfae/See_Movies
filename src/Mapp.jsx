@@ -138,7 +138,7 @@ function Mapp() {
                     { trendingLoading ? (
                             <Spinner />
                     ) : trendingError ? (
-                            <p className="text-red-500 mb-10 mt-10">{trendingError}</p>
+                            <p className="text-red-500 mb-10 ml-5 mt-10">{trendingError}</p>
                     ) : (
 
                         trendingMovies.length > 0 ? (
@@ -175,7 +175,7 @@ function Mapp() {
                         ) : (
                             <ul>
                                 {movieList.map((movie) => (
-                                    <li onClick={() => descriptionPopUp(movie)}><MovieCard key={movie.id} movie={movie}/></li>
+                                    <li key={movie.id} onClick={() => descriptionPopUp(movie)}><MovieCard key={movie.id} movie={movie}/></li>
                                 ))}
                             </ul>
                         )}

@@ -1,3 +1,5 @@
+import ReadMore from "./ReadMore.jsx";
+
 function MovieInfo({ movie, exit }) {
 
 
@@ -32,20 +34,23 @@ function MovieInfo({ movie, exit }) {
                     <img src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "not-available.png"} alt={movie.title}/>
 
                     <div className="detail-container">
+                    
                         <h2>{movie.title}</h2>
                         
                         <div className="rating">
                             <i className="bi bi-star-fill"></i>
-                            <span>{`${movie.vote_average.toFixed(1)} Rating`}</span>
-                            <span>•</span>
-                            <span>{dateFormat()}</span>
-                            <span>•</span>
-                            <span>{movie.original_language.toUpperCase()}</span>
+                            <span>{`${movie.vote_average.toFixed(1)}`}<span className="rate-text">Rating</span></span>
+                            <span className="hiding">•</span>
+                            <span className="hiding">{dateFormat()}</span>
+                            <span className="hiding">•</span>
+                            <span className="hiding">{movie.original_language.toUpperCase()}</span>
                         </div>
                         
-                        <p>{movie.overview}</p>
-                        <button>Download</button>
-                        <button>Stream online</button>
+                        <ReadMore text={movie.overview} limit={100} />
+                        <p className="big-info">{movie.overview}</p>
+                        <button className="info-button">Download</button>
+                        <button className="info-button">Stream online</button>
+                    
                     </div>  
 
                 </div>
